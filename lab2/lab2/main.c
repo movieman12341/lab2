@@ -40,25 +40,25 @@ int main()
 	//	arrA[i] = num;
 	//}					
 	
-	int arrAPosition = 0, arrXPosition = 0;
-	int isSubseq = 1; //assume x is subsequence of array a
-	int i = 0;
-	for (; i < numAElements; i++)
+	int arrAPosition = 0, arrXPosition = 0, numFound = 0;
+	int isSubseq = 0; //assume x is not a subsequence of array A
+	//int i = 0;
+	for (; arrAPosition < numAElements && numFound <= numXElements; arrAPosition++)
 	{
 		if (arrX[arrXPosition] == arrA[arrAPosition])
 		{
-			arrAPosition++;
 			arrXPosition++;
-			i = 0; //reset counter to max number of comparisons allowed
+			numFound++;
 		}
-		else if (arrX[arrXPosition] != arrA[arrAPosition])
+		else
 		{
-			arrAPosition++;
-		}
-		else if (arrAPosition == numAElements)//exhaust array a list, so x is not subsequence
-		{
-			isSubseq = 0; //false = not a subseq
+			arrAPosition = -1;
 		}
 	}
+	if (arrXPosition == numXElements)
+	{
+		isSubseq = 1;
+	}
+	printf("\n\n%d", isSubseq);
 	return 0;
 }
