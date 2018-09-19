@@ -50,11 +50,10 @@ int main()
 			arrXPosition++;
 			numFound++;
 		}
-		else
-		{
-			arrAPosition = -1;
-		}
+
+
 	}
+
 	if (arrXPosition == numXElements)
 	{
 		isSubseq = 1;
