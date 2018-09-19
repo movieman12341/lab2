@@ -15,6 +15,11 @@ description:
 
 */
 
+
+//protos
+int subsequenceTest(int arrayA[], int arrayX[], int numAElement, int numXElement);
+
+
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -39,25 +44,29 @@ int main()
 	//	scanf("%d", &num);
 	//	arrA[i] = num;
 	//}					
-	
+
+
+	//printf("\n\n%d\n", isSubseq);
+	return 0;
+}
+
+int subsequenceTest(int arrayA[], int arrayX[], int numAElement, int numXElement)
+{
 	int arrAPosition = 0, arrXPosition = 0, numFound = 0;
 	int isSubseq = 0; //assume x is not a subsequence of array A
-	//int i = 0;
-	for (; arrAPosition < numAElements && numFound <= numXElements; arrAPosition++)
+					  //int i = 0;
+	for (; arrAPosition < numAElement && numFound < numXElement; arrAPosition++)
 	{
-		if (arrX[arrXPosition] == arrA[arrAPosition])
+		if (arrayX[arrXPosition] == arrayA[arrAPosition])
 		{
 			arrXPosition++;
 			numFound++;
 		}
-
-
 	}
 
-	if (arrXPosition == numXElements)
+	if (arrXPosition == numXElement)
 	{
-		isSubseq = 1;
+		return 1;
 	}
-	printf("\n\n%d", isSubseq);
-	return 0;
 }
+//returns 1 of array x is subsequence of array A. 0 otherwise.
