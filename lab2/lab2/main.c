@@ -18,7 +18,7 @@ description:
 
 //protos
 int subsequenceTest(int arrayA[], int arrayX[], int numAElement, int numXElement);
-
+void findInterleafFactor(int arrayA[], int arrayX[], int numAElement, int numXElement);
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -29,8 +29,8 @@ int main()
 	int numAElements = 0, numXElements = 0;
 	scanf("%d %d", &numAElements, &numXElements);
 
-	int arrA[20] = { 4,3,2,1,4,3,2,1, 4,3,2,1, 4,3,2,1, 4,3,2,1 };
-	int arrX[3] = { 1, 2, 3 };
+	int arrA[20] = { 4,3,2,1,4,3,2,1,4,3,2,1,4,3,2,1,4,3,2,1 };
+	int arrX[3] = {1,2,3 };
 	//use after final is done for array input.
 
 	//int *arrA = (int*)calloc(numAElements, sizeof(int*));
@@ -45,11 +45,13 @@ int main()
 	//	arrA[i] = num;
 	//}					
 
+	findInterleafFactor(arrA, arrX, numAElements, numXElements);
 
-	//printf("\n\n%d\n", isSubseq);
 	return 0;
 }
 
+
+//returns 1 of array x is subsequence of array A. 0 otherwise.
 int subsequenceTest(int arrayA[], int arrayX[], int numAElement, int numXElement)
 {
 	int arrAPosition = 0, arrXPosition = 0, numFound = 0;
@@ -68,5 +70,19 @@ int subsequenceTest(int arrayA[], int arrayX[], int numAElement, int numXElement
 	{
 		return 1;
 	}
+	else
+	{
+		return 0;
+	}
+} 
+
+
+
+void findInterleafFactor(int arrayA[], int arrayX[], int numAElement, int numXElement)
+{
+	int range = numAElement / numXElement;
+	int high = range, low = 0, mid = (numAElement + numXElement) / 2;
+
+
 }
-//returns 1 of array x is subsequence of array A. 0 otherwise.
+
