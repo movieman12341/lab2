@@ -18,7 +18,8 @@ description:
 
 //protos
 int subsequenceTest(int arrayA[], int arrayX[], int numAElement, int numXElement);
-void findInterleafFactor(int arrayA[], int arrayX[], int numAElement, int numXElement);
+int findInterleafFactor(int arrayA[], int arrayX[], int numAElement, int numXElement);
+int* interleafSequence(int[], int);
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -51,7 +52,7 @@ int main()
 }
 
 
-//returns 1 of array x is subsequence of array A. 0 otherwise.
+//returns 1 of array x is subsequence of array A. 0 otherwise. done
 int subsequenceTest(int arrayA[], int arrayX[], int numAElement, int numXElement)
 {
 	int arrAPosition = 0, arrXPosition = 0, numFound = 0;
@@ -78,11 +79,27 @@ int subsequenceTest(int arrayA[], int arrayX[], int numAElement, int numXElement
 
 
 
-void findInterleafFactor(int arrayA[], int arrayX[], int numAElement, int numXElement)
+int findInterleafFactor(int arrayA[], int arrayX[], int numAElement, int numXElement)
 {
 	int range = numAElement / numXElement;
-	int high = range, low = 0, mid = (numAElement + numXElement) / 2;
+	int high = range, low = 0, mid = 0, maxInterleafFactor = 0;
 
-
+	while (low <= high)
+	{
+		mid = (high + low) / 2;
+		maxInterleafFactor = mid;
+		int testArray[] = interleafSequence(arrayX, maxInterleafFactor);
+		int testArrayLength = sizeof(testArray) / sizeof(testArray[0]);
+		int isInterleafFactor = subsequenceTest(arrayA, testArray, numAElement, testArrayLength );
+				////returns 1 of array x is subsequence of array A. 0 otherwise.
+		if (isInterleafFactor == 1)//test array is subset of array A. all values of i work below, so go right.
+		{
+			low = mid + 1;
+		}
+		else
+		{
+			high = mid - 1;
+		}
+	}
 }
 
