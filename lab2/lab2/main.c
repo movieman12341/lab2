@@ -82,24 +82,25 @@ int subsequenceTest(int arrayA[], int arrayX[], int numAElement, int numXElement
 int findInterleafFactor(int arrayA[], int arrayX[], int numAElement, int numXElement)
 {
 	int range = numAElement / numXElement;
-	int high = range, low = 0, mid = 0, maxInterleafFactor = 0;
-
+	int high = range, low = 0, mid = 0;
+	int maxInterleafFactor = 0;
 	while (low <= high)
 	{
 		mid = (high + low) / 2;
-		maxInterleafFactor = mid;
-		int testArray[] = interleafSequence(arrayX, maxInterleafFactor);
+		int testArray[] = interleafSequence(arrayX, mid);
 		int testArrayLength = sizeof(testArray) / sizeof(testArray[0]);
 		int isInterleafFactor = subsequenceTest(arrayA, testArray, numAElement, testArrayLength );
 				////returns 1 of array x is subsequence of array A. 0 otherwise.
 		if (isInterleafFactor == 1)//test array is subset of array A. all values of i work below, so go right.
 		{
 			low = mid + 1;
+			maxInterleafFactor = mid; //the value of i actually worked
 		}
 		else
 		{
 			high = mid - 1;
 		}
 	}
+	return maxInterleafFactor;
 }
 
