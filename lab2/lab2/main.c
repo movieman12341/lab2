@@ -19,7 +19,7 @@ description:
 //protos
 int subsequenceTest(int arrayA[], int arrayX[], int numAElement, int numXElement);
 int findInterleafFactor(int arrayA[], int arrayX[], int numAElement, int numXElement);
-int* interleafSequence(int[], int);
+int* interleafSequence(int[], int arrXLength, int interleafValue);
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -31,7 +31,7 @@ int main()
 	scanf("%d %d", &numAElements, &numXElements);
 
 	int arrA[20] = { 4,3,2,1,4,3,2,1,4,3,2,1,4,3,2,1,4,3,2,1 };
-	int arrX[3] = {1,2,3 };
+	int arrX[3] = { 1,2,3 };
 	//use after final is done for array input.
 
 	//int *arrA = (int*)calloc(numAElements, sizeof(int*));
@@ -46,7 +46,8 @@ int main()
 	//	arrA[i] = num;
 	//}					
 
-	findInterleafFactor(arrA, arrX, numAElements, numXElements);
+	int MaxInterleafFactor = findInterleafFactor(arrA, arrX, numAElements, numXElements);
+	printf("maximum repeats is %d\n", MaxInterleafFactor);
 
 	return 0;
 }
@@ -75,7 +76,7 @@ int subsequenceTest(int arrayA[], int arrayX[], int numAElement, int numXElement
 	{
 		return 0;
 	}
-} 
+}
 
 
 
@@ -87,20 +88,40 @@ int findInterleafFactor(int arrayA[], int arrayX[], int numAElement, int numXEle
 	while (low <= high)
 	{
 		mid = (high + low) / 2;
-		int testArray[] = interleafSequence(arrayX, mid);
-		int testArrayLength = sizeof(testArray) / sizeof(testArray[0]);
-		int isInterleafFactor = subsequenceTest(arrayA, testArray, numAElement, testArrayLength );
-				////returns 1 of array x is subsequence of array A. 0 otherwise.
+		printf("low %d mid %d high %d ", low, mid, high);
+		int *testArray = interleafSequence(arrayX, numXElement, mid);
+		int testArrayLength = numXElement * mid; //length is interleaf factor * array x length.
+		int isInterleafFactor = subsequenceTest(arrayA, testArray, numAElement, testArrayLength);
+		////returns 1 of array x is subsequence of array A. 0 otherwise.
 		if (isInterleafFactor == 1)//test array is subset of array A. all values of i work below, so go right.
 		{
 			low = mid + 1;
 			maxInterleafFactor = mid; //the value of i actually worked
+			printf("passed\n");
 		}
 		else
 		{
 			high = mid - 1;
+			printf("failed\n");
 		}
 	}
 	return maxInterleafFactor;
+}
+
+int * interleafSequence(int arrX[], int arrXLength, int interleafValue)
+{
+	int* newArr = (int*)calloc(interleafValue * arrXLength, sizeof(int*));
+
+	int i = 0, j = 0, jIndex = 0;
+	for (; i < arrXLength; i++)
+	{
+		for (j = 0; j < interleafValue; j++)
+		{
+			newArr[jIndex] = arrX[i];
+			jIndex++;
+		}
+	}
+
+	return newArr;
 }
 
